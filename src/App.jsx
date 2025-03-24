@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [languages, setLanguages] = useState("");
-  const [difficulty, setDifficulty] = useState("medium");
+  const [difficulty, setDifficulty] = useState(1); // 1 = Beginner, 2 = Easy, 3 = Medium, 4 = Hard, 5 = Advanced
   const [projectType, setProjectType] = useState("web application");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,13 +13,13 @@ function App() {
     setLoading(true);
     setError("");
     setProjects([]);
-
+  
     const requestData = {
       languages: languages.split(",").map((lang) => lang.trim()),
-      difficulty,
+      difficulty: difficulty.toString(),
       project_type: projectType,
     };
-
+  
     try {
       const response = await fetch("http://127.0.0.1:8000/generate-project", {
         method: "POST",
@@ -28,20 +28,31 @@ function App() {
         },
         body: JSON.stringify(requestData),
       });
-
-      const data = await response.json();
-
-      if (data.error) {
-        setError(data.error);
+  
+      if (response.ok) {
+        const data = await response.json();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setProjects(data.project_ideas);
+        }
       } else {
-        setProjects(data.project_ideas);
+        setError("Error: " + response.statusText);
       }
     } catch (err) {
       setError("Failed to fetch project ideas. Check your backend.");
     } finally {
       setLoading(false);
     }
-  };
+  };  
+
+  const difficultyLabels = [
+    "Beginner",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Advanced",
+  ];
 
   return (
     <div className="App">
@@ -58,23 +69,56 @@ function App() {
 
       <div>
         <label>Difficulty:</label>
-        <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-          <option value="beginner">Beginner</option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-          <option value="advanced">Advanced</option>
-        </select>
+        <div className="difficulty-slider">
+          <input
+            type="range"
+            min="1"
+            max="5"
+            step="1"
+            value={difficulty}
+            onChange={(e) => setDifficulty(Number(e.target.value))}
+          />
+          <div className="difficulty-labels">
+            {difficultyLabels.map((label, index) => (
+              <span
+                key={index}
+                className={`label-${index + 1} ${difficulty === index + 1 ? "active" : ""}`}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div>
         <label>Project Type:</label>
-        <select value={projectType} onChange={(e) => setProjectType(e.target.value)}>
-          <option value="web application">Web Application</option>
-          <option value="mobile application">Mobile Application</option>
-          <option value="machine learning">Machine Learning</option>
-          <option value="game development">Game Development</option>
-        </select>
+        <div className="project-type-buttons">
+          <button
+            onClick={() => setProjectType("web application")}
+            className={projectType === "web application" ? "active" : ""}
+          >
+            Web Application
+          </button>
+          <button
+            onClick={() => setProjectType("mobile application")}
+            className={projectType === "mobile application" ? "active" : ""}
+          >
+            Mobile Application
+          </button>
+          <button
+            onClick={() => setProjectType("machine learning")}
+            className={projectType === "machine learning" ? "active" : ""}
+          >
+            Machine Learning
+          </button>
+          <button
+            onClick={() => setProjectType("game development")}
+            className={projectType === "game development" ? "active" : ""}
+          >
+            Game Development
+          </button>
+        </div>
       </div>
 
       <button onClick={handleGenerateProjects} disabled={loading}>
