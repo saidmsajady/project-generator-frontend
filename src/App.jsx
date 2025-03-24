@@ -3,7 +3,8 @@ import "./App.css";
 
 function App() {
   const [languages, setLanguages] = useState("");
-  const [difficulty, setDifficulty] = useState(1); // 1 = Beginner, 2 = Easy, 3 = Medium, 4 = Hard, 5 = Advanced
+  const [languagesList, setLanguagesList] = useState([]); // Store list of added languages
+  const [difficulty, setDifficulty] = useState(1);
   const [projectType, setProjectType] = useState("web application");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,13 +14,13 @@ function App() {
     setLoading(true);
     setError("");
     setProjects([]);
-  
+
     const requestData = {
-      languages: languages.split(",").map((lang) => lang.trim()),
+      languages: languagesList,
       difficulty: difficulty.toString(),
       project_type: projectType,
     };
-  
+
     try {
       const response = await fetch("http://127.0.0.1:8000/generate-project", {
         method: "POST",
@@ -28,7 +29,7 @@ function App() {
         },
         body: JSON.stringify(requestData),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         if (data.error) {
@@ -44,27 +45,55 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };  
+  };
 
-  const difficultyLabels = [
-    "Beginner",
-    "Easy",
-    "Medium",
-    "Hard",
-    "Advanced",
-  ];
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && languages.trim() !== "" && languagesList.length < 3) {
+      handleAddLanguage();
+    }
+  };
+
+  const handleAddLanguage = () => {
+    if (languages.trim() !== "" && languagesList.length < 3) {
+      setLanguagesList((prevList) => [...prevList, languages.trim()]);
+      setLanguages(""); // Reset input after adding
+    }
+  };
+
+  const handleRemoveLanguage = (languageToRemove) => {
+    setLanguagesList((prevList) => prevList.filter((lang) => lang !== languageToRemove));
+  };
 
   return (
     <div className="App">
       <h1>Project Idea Generator</h1>
 
       <div>
-        <label>Technologies (comma-separated):</label>
-        <input
-          type="text"
-          value={languages}
-          onChange={(e) => setLanguages(e.target.value)}
-        />
+        <label>Technologies:</label>
+        <div>
+          <input
+            type="text"
+            value={languages}
+            onChange={(e) => setLanguages(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Type a language and press Enter"
+          />
+          <button
+            onClick={handleAddLanguage}
+            disabled={languagesList.length >= 3}
+          >
+            Add Language
+          </button>
+        </div>
+
+        <div>
+          {languagesList.map((language, index) => (
+            <div key={index} className="language-tag">
+              <span>{language}</span>
+              <button onClick={() => handleRemoveLanguage(language)}>x</button>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div>
@@ -79,7 +108,7 @@ function App() {
             onChange={(e) => setDifficulty(Number(e.target.value))}
           />
           <div className="difficulty-labels">
-            {difficultyLabels.map((label, index) => (
+            {["Beginner", "Easy", "Medium", "Hard", "Advanced"].map((label, index) => (
               <span
                 key={index}
                 className={`label-${index + 1} ${difficulty === index + 1 ? "active" : ""}`}

@@ -1,3 +1,75 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -11,9 +83,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -43,8 +117,10 @@
 
 .project-type-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin: 10px 0;
+  justify-content: center;
 }
 
 .project-type-btn {
@@ -53,6 +129,7 @@
   background-color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
 }
 
 .project-type-btn:hover {
@@ -96,4 +173,101 @@
 
 .project-type-buttons button:hover {
   background-color: #f0f0f0;
+}
+
+.language-input {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.language-input input {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.language-input button {
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.language-input button:hover {
+  background-color: #0056b3;
+}
+
+.tags-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag-remove {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 2px 5px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.tag-remove:hover {
+  background-color: #c0392b;
+}
+
+.language-tag {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.language-tag button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* For Project Types on Desktop */
+@media (min-width: 1024px) {
+  .project-type-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .project-type-btn {
+    width: 45%;
+  }
+}
+
+/* Hide "Add Language" button after 3 languages */
+.language-input button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add hover effect on the language tags */
+.language-tag:hover {
+  background-color: #e0e0e0;
 }
