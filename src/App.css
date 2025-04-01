@@ -1,273 +1,338 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #ffffff;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
+/* Center the entire app content */
+.App {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  background-color: #ffffff;
+  padding: 0 20px;
+  text-align: center;
+  background-color: #f4f4f9;
+  width: 100%; /* Ensure App takes up full width */
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin-bottom: 1rem;
+  font-size: 3rem; /* Large font size */
+  text-align: center; /* Center-align the text */
+  margin: 2rem 0; /* Add some space around the title */
+  color: #447fb7; /* Dark color for the title */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.input-container {
+  width: 100%; /* Ensure the container within App spans full width */
+  max-width: 1050px; /* Add a max-width to prevent stretching too wide */
 }
 
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.project-type-buttons {
+/* Container for technologies section */
+.technologies-container {
+  border: 1px solid #ddd; /* Subtle light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Padding inside the container */
+  margin-bottom: 2rem; /* Space below the container */
+  background-color: #f9f9f9; /* Light background color */
+  width: 100%; /* Ensure it takes the full width of the parent */
+  max-width: 1000px; /* Set a maximum width for bigger container */
+  margin: 0 auto; /* Horizontally center the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.project-type-btn {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-align: center;
-}
-
-.project-type-btn:hover {
-  background-color: #f0f0f0;
-}
-
-.project-type-btn.selected {
-  background-color: #007BFF;
-  color: white;
-  border-color: #007BFF;
-}
-
-.difficulty-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.difficulty-slider input {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.difficulty-labels span.active {
+/* Label styling */
+.technologies-container label {
+  text-align: left;
   font-weight: bold;
+  padding-bottom: 5px;
+  font-size: larger;
+  display: block; /* Make label a block element */
 }
 
-.project-type-buttons button.active {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
-.project-type-buttons button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.project-type-buttons button:hover {
-  background-color: #f0f0f0;
-}
-
-.language-input {
+/* Styling for the input and button inside the input section */
+.input-section {
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  gap: 10px; /* Add space between input and button */
   align-items: center;
-  margin-bottom: 1rem;
+  width: 100%; /* Ensure the section takes full width */
 }
 
-.language-input input {
-  padding: 5px;
+/* Styling for the input field */
+.technology-input {
+  padding: 0.5rem;
   font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 82%; /* Set a width for the input to take up most of the container */
 }
 
-.language-input button {
-  padding: 5px 10px;
-  background-color: #007BFF;
+/* Button styling for "Add Language" */
+.add-language-button {
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+  background-color: #539be8;
   color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
-.language-input button:hover {
-  background-color: #0056b3;
+/* Button hover effect for "Add Language" */
+.add-language-button:hover {
+  background-color: #388be4;
 }
 
-.tags-container {
+/* Styling for the language tags */
+.language-tags {
   margin-top: 10px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
-.tag {
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  border-radius: 15px;
-  display: flex;
+/* Language tag styling */
+.language-tag {
+  background-color: #e3e2e2;
+  padding: 5px 15px;
+  border-radius: 5px;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
+  margin-right: 10px;
 }
 
-.tag-remove {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 2px 5px;
-  cursor: pointer;
-  font-size: 0.75rem;
-}
-
-.tag-remove:hover {
-  background-color: #c0392b;
-}
-
-.language-tag {
-  display: inline-block;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 15px;
-}
-
-.language-tag button {
+/* Remove button inside language tag */
+.remove-language-button {
   background: none;
   border: none;
   color: red;
   cursor: pointer;
   font-weight: bold;
-  margin-left: 5px;
+  font-size: 1rem;
 }
 
-/* For Project Types on Desktop */
-@media (min-width: 1024px) {
-  .project-type-buttons {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  .project-type-btn {
-    width: 45%;
-  }
+/* Disabled button styling */
+.add-language-button:disabled {
+  background-color: #c9c9c9; /* Grey out the button */
+  cursor: not-allowed; /* Change cursor to indicate it's disabled */
 }
 
-/* Hide "Add Language" button after 3 languages */
-.language-input button:disabled {
-  background-color: #ccc;
+/* Difficulty container (similar to technologies container) */
+.difficulty-container {
+  border: 1px solid #ddd; /* Subtle light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Padding inside the container */
+  margin-bottom: 2rem; /* Space below the container */
+  background-color: #f9f9f9; /* Light background color */
+  width: 100%; /* Ensure it takes the full width of the parent */
+  max-width: 1000px; /* Set a maximum width for bigger container */
+  margin: 0 auto; /* Horizontally center the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling for Difficulty */
+.difficulty-label {
+  font-weight: bold;
+  text-align: left;
+  padding-bottom: 10px;
+  font-size: larger;
+  display: block; /* Make label a block element */
+}
+
+/* Difficulty slider container */
+.difficulty-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 1rem;
+}
+
+.side-title {
+  text-align: left;
+}
+
+/* Styling for the range input */
+.difficulty-slider .difficulty-input {
+  -webkit-appearance: none; /* Remove default slider styles */
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #539be8, #539be8) no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.2s ease-in-out; /* Smooth transition */
+}
+
+/* Thumb styling (slider handle) */
+.difficulty-slider .difficulty-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #539be8;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.difficulty-slider .difficulty-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #539be8;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for the thumb */
+.difficulty-slider .difficulty-input::-webkit-slider-thumb:hover {
+  background-color: #388be4;
+}
+
+.difficulty-slider .difficulty-input::-moz-range-thumb:hover {
+  background-color: #388be4;
+}
+
+/* Styling for the labels under the slider */
+.difficulty-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Label styling */
+.difficulty-labels span {
+  font-size: 0.875rem;
+  color: #555;
+  transition: color 0.3s;
+}
+
+/* Active label styling */
+.difficulty-labels span.active {
+  color: #539be8; /* Highlight active label */
+  font-weight: bold;
+}
+
+/* Container for Project Type section */
+.project-type-container {
+  border: 1px solid #ddd; /* Subtle light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Padding inside the container */
+  margin-bottom: 2rem; /* Space below the container */
+  background-color: #f9f9f9; /* Light background color */
+  width: 100%; /* Ensure it takes the full width of the parent */
+  max-width: 1000px; /* Set a maximum width for bigger container */
+  margin: 0 auto; /* Horizontally center the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling for Project Type */
+.project-type-container label {
+  text-align: left;
+  font-weight: bold;
+  padding-bottom: 5px;
+  font-size: larger;
+  display: block; /* Make label a block element */
+}
+
+/* Styling for the project type buttons */
+.project-type-buttons {
+  display: flex;
+  gap: 40px; /* Add space between the buttons */
+  flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
+  justify-content: center; /* Align buttons to the left */
+  margin-top: 1rem; /* Add space between the label and buttons */
+}
+
+/* Styling for the individual project type buttons */
+.project-type-buttons button {
+  padding: 0.6rem 1.2rem;
+  background-color: #388be4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Active button styling */
+.project-type-buttons button.active {
+  background-color: #15579e;
+}
+
+.generate-button {
+  display: block;
+  width: 100%; /* Make it take full width */
+  max-width: 1000px; /* Match the max-width of previous containers */
+  margin: 1.5rem auto; /* Centers the button */
+  font-weight: bold;
+  padding: 1rem 1.5rem; /* Slightly larger padding for better spacing */
+  background-color: #388be4;
+  color: white;
+  border: none;
+  border-radius: 8px; /* Match container border-radius */
+  cursor: pointer;
+  font-size: 1.2rem; /* Slightly larger font for visibility */
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  text-align: center;
+}
+
+.generate-button:hover {
+  transform: scale(1.02); /* Slight pop effect on hover */
+}
+
+.generate-button:disabled {
+  background-color: #c9c9c9;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* Add hover effect on the language tags */
-.language-tag:hover {
-  background-color: #e0e0e0;
+.output-container {
+  display: flex;
+  justify-content:center; /* Distribute items with space between */
+  gap: 1rem; /* Optional: Adds spacing between project containers */
+  margin-top: 2rem;
+}
+
+.project {
+  width: 40%; /* Ensures each project takes up half of the container */
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.project h2 {
+  font-size: 2rem;
+}
+
+.project p {
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.implementation-steps {
+  padding-left: 0;
+}
+
+.step {
+  font-size: 1rem;
+}
+
+.project strong {
+  font-weight: bold;
+}
+
+/* Additional Styling for Generated Projects */
+.generated .project {
+  background-color: #ffffff; /* Light teal background for generated projects */
+  border: 2px solid #388be4;
+  
 }

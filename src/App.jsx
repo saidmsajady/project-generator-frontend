@@ -9,11 +9,13 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [projectGenerated, setProjectGenerated] = useState(false); // New state to track if the project is generated
 
   const handleGenerateProjects = async () => {
     setLoading(true);
     setError("");
     setProjects([]);
+    setProjectGenerated(false); // Reset project generated state
 
     const requestData = {
       languages: languagesList,
@@ -36,6 +38,7 @@ function App() {
           setError(data.error);
         } else {
           setProjects(data.project_ideas);
+          setProjectGenerated(true); // Set projectGenerated to true after the project is generated
         }
       } else {
         setError("Error: " + response.statusText);
@@ -68,106 +71,155 @@ function App() {
     <div className="App">
       <h1>Project Idea Generator</h1>
 
-      <div>
-        <label>Technologies:</label>
-        <div>
-          <input
-            type="text"
-            value={languages}
-            onChange={(e) => setLanguages(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a language and press Enter"
-          />
-          <button
-            onClick={handleAddLanguage}
-            disabled={languagesList.length >= 3}
-          >
-            Add Language
-          </button>
-        </div>
-
-        <div>
-          {languagesList.map((language, index) => (
-            <div key={index} className="language-tag">
-              <span>{language}</span>
-              <button onClick={() => handleRemoveLanguage(language)}>x</button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <label>Difficulty:</label>
-        <div className="difficulty-slider">
-          <input
-            type="range"
-            min="1"
-            max="5"
-            step="1"
-            value={difficulty}
-            onChange={(e) => setDifficulty(Number(e.target.value))}
-          />
-          <div className="difficulty-labels">
-            {["Beginner", "Easy", "Medium", "Hard", "Advanced"].map((label, index) => (
-              <span
-                key={index}
-                className={`label-${index + 1} ${difficulty === index + 1 ? "active" : ""}`}
+      <div className="input-container">
+        {/* Combined container for technologies and difficulty */}
+        <div className="combined-container">
+          <div className="technologies-container">
+            <label>Enter Technologies:</label>
+            <div className="input-section">
+              <input
+                type="text"
+                value={languages}
+                onChange={(e) => setLanguages(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a language and press Enter"
+                className="technology-input"
+              />
+              <button
+                onClick={handleAddLanguage}
+                disabled={languagesList.length >= 3}
+                className="add-language-button"
               >
-                {label}
-              </span>
-            ))}
+                Add Language
+              </button>
+            </div>
+
+            <div className="language-tags">
+              {languagesList.map((language, index) => (
+                <div key={index} className="language-tag">
+                  <span>{language}</span>
+                  <button onClick={() => handleRemoveLanguage(language)} className="remove-language-button">x</button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="difficulty-container">
+            <label className="difficulty-label">Difficulty:</label>
+            <label className="side-title">Adjust the complexity level of the project generated</label>
+            <div className="difficulty-slider">
+              <input
+                type="range"
+                min="1"
+                max="5"
+                step="1"
+                value={difficulty}
+                onChange={(e) => setDifficulty(Number(e.target.value))}
+                className="difficulty-input"
+                style={{
+                  backgroundSize: `${(difficulty - 1) * 25}% 100%`,
+                }}
+              />
+              <div className="difficulty-labels">
+                {["Beginner", "Easy", "Medium", "Hard", "Advanced"].map((label, index) => (
+                  <span
+                    key={index}
+                    className={`label-${index + 1} ${difficulty === index + 1 ? "active" : ""}`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <label>Project Type:</label>
-        <div className="project-type-buttons">
-          <button
-            onClick={() => setProjectType("web application")}
-            className={projectType === "web application" ? "active" : ""}
-          >
-            Web Application
-          </button>
-          <button
-            onClick={() => setProjectType("mobile application")}
-            className={projectType === "mobile application" ? "active" : ""}
-          >
-            Mobile Application
-          </button>
-          <button
-            onClick={() => setProjectType("machine learning")}
-            className={projectType === "machine learning" ? "active" : ""}
-          >
-            Machine Learning
-          </button>
-          <button
-            onClick={() => setProjectType("game development")}
-            className={projectType === "game development" ? "active" : ""}
-          >
-            Game Development
-          </button>
+        <div className="project-type-container">
+          <label>Project Type:</label>
+  
+          <div className="project-type-buttons">
+            <button
+              onClick={() => setProjectType("web application")}
+              className={projectType === "web application" ? "active" : ""}
+            >
+              Web Application
+            </button>
+            <button
+              onClick={() => setProjectType("mobile application")}
+              className={projectType === "mobile application" ? "active" : ""}
+            >
+              Mobile Application
+            </button>
+            <button
+              onClick={() => setProjectType("machine learning")}
+              className={projectType === "machine learning" ? "active" : ""}
+            >
+              Machine Learning
+            </button>
+            <button
+              onClick={() => setProjectType("game development")}
+              className={projectType === "game development" ? "active" : ""}
+            >
+              Game Development
+            </button>
+          </div>
         </div>
-      </div>
+        </div>
 
-      <button onClick={handleGenerateProjects} disabled={loading}>
-        {loading ? "Generating..." : "Generate Projects"}
-      </button>
+        <button 
+          className="generate-button"
+          onClick={handleGenerateProjects} 
+          disabled={loading || languagesList.length === 0}
+        >
+          {loading ? "Generating..." : "Generate Projects"}
+        </button>
+
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div>
+      <div className={`output-container ${projectGenerated ? 'generated' : ''}`}>
         {projects.map((project, index) => (
           <div key={index} className="project">
             <h2>{project.title}</h2>
-            <p><strong>Short Description:</strong> {project.short_description}</p>
-            <p><strong>Long Description:</strong> {project.long_description}</p>
-            <p><strong>Tech Stack:</strong> {project.tech_stack.join(", ")}</p>
-            <p><strong>Implementation Steps:</strong> {project.implementation_instructions}</p>
+
+            {/* Short Description */}
+            <div className="description">
+              <p><strong>Short Description:</strong></p>
+              <p>{project.short_description}</p>
+            </div>
+
+            {/* Long Description */}
+            <div className="description">
+              <p><strong>Long Description:</strong></p>
+              <p>{project.long_description}</p>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="description">
+              <p><strong>Tech Stack:</strong></p>
+              <p>{project.tech_stack.join(", ")}</p>
+            </div>
+
+            {/* Implementation Steps */}
+            <div className="description">
+              <p><strong>Implementation Steps:</strong></p>
+              <div className="implementation-steps">
+                {project.implementation_instructions
+                  .split(/\d+\./) // Splits based on numbers followed by a period (e.g., "1.", "2.")
+                  .filter(step => step.trim()) // Filters out any empty strings
+                  .map((step, idx) => (
+                    <p key={idx} className="step">{idx + 1}. {step.trim()}</p>
+                  ))}
+              </div>
+            </div>
           </div>
         ))}
       </div>
+
+
+
     </div>
+
   );
 }
 
