@@ -164,20 +164,19 @@ function App() {
             </button>
           </div>
         </div>
-        </div>
+      </div>
 
-        <button 
-          className="generate-button"
-          onClick={handleGenerateProjects} 
-          disabled={loading || languagesList.length === 0}
-        >
-          {loading ? "Generating..." : "Generate Projects"}
-        </button>
-
+      <button 
+        className="generate-button"
+        onClick={handleGenerateProjects} 
+        disabled={loading || languagesList.length === 0}
+      >
+        {loading ? "Generating..." : "Generate Projects"}
+      </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div className={`output-container ${projectGenerated ? 'generated' : ''}`}>
+      <div className="output-container">
         {projects.map((project, index) => (
           <div key={index} className="project">
             <h2>{project.title}</h2>
@@ -212,14 +211,11 @@ function App() {
                   ))}
               </div>
             </div>
-          </div>
+
+          </div> // Close the project div
         ))}
       </div>
-
-
-
-    </div>
-
+    </div> // Close the App div
   );
 }
 
